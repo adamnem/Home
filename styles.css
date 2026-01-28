@@ -411,12 +411,66 @@ ul {
     background-color: var(--color-bg);
 }
 
+.about-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+}
+
+.headshot-container {
+    position: sticky;
+    top: calc(60px + var(--space-lg));
+}
+
+.headshot {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-bg-warm);
+    box-shadow: 0 4px 20px rgba(30, 16, 51, 0.1);
+}
+
 .about-content p {
     max-width: 60ch;
 }
 
 .about-content p:last-child {
     margin-bottom: 0;
+}
+
+/* Company Logos */
+.company-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .headshot-container {
+        position: static;
+        display: flex;
+        justify-content: center;
+        margin-bottom: var(--space-lg);
+    }
+
+    .headshot {
+        width: 150px;
+        height: 150px;
+    }
+
+    .about-content {
+        text-align: left;
+    }
 }
 
 /* ==========================================================================

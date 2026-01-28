@@ -5,7 +5,7 @@
 
 /* CSS Custom Properties */
 :root {
-    /* Colors */
+    /* Light Mode Colors */
     --color-bg: #FAF8F5;
     --color-bg-warm: #F5F0E8;
     --color-bg-accent: #EDE8E0;
@@ -28,6 +28,14 @@
     --color-text: var(--color-grey-800);
     --color-text-muted: var(--color-grey-600);
     --color-text-light: var(--color-grey-500);
+
+    /* Nav background for light mode */
+    --nav-bg: rgba(250, 248, 245, 0.95);
+    --nav-border: var(--color-grey-200);
+
+    /* Section-specific backgrounds */
+    --footer-bg: #1E1033;
+    --contact-gradient-end: #1E1033;
 
     /* Typography */
     --font-serif: 'Charter', 'Libre Baskerville', 'Georgia', 'Times New Roman', serif;
@@ -62,6 +70,76 @@
     /* Transitions */
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
+}
+
+/* ==========================================================================
+   Dark Mode
+   ========================================================================== */
+
+/* Auto dark mode based on system preference */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --color-bg: #0D0D0D;
+        --color-bg-warm: #151515;
+        --color-bg-accent: #1A1A1A;
+
+        --color-purple-deep: #E8E0F0;
+        --color-purple: #B39DDB;
+        --color-purple-light: #9575CD;
+        --color-purple-muted: #9E8FB0;
+
+        --color-grey-900: #F5F5F5;
+        --color-grey-800: #E0E0E0;
+        --color-grey-700: #BDBDBD;
+        --color-grey-600: #9E9E9E;
+        --color-grey-500: #757575;
+        --color-grey-400: #616161;
+        --color-grey-300: #424242;
+        --color-grey-200: #303030;
+        --color-grey-100: #212121;
+
+        --color-text: var(--color-grey-800);
+        --color-text-muted: var(--color-grey-600);
+        --color-text-light: var(--color-grey-500);
+
+        --nav-bg: rgba(13, 13, 13, 0.95);
+        --nav-border: var(--color-grey-200);
+
+        --footer-bg: #1A1A1A;
+        --contact-gradient-end: #1A1A1A;
+    }
+}
+
+/* Manual dark mode override */
+:root[data-theme="dark"] {
+    --color-bg: #0D0D0D;
+    --color-bg-warm: #151515;
+    --color-bg-accent: #1A1A1A;
+
+    --color-purple-deep: #E8E0F0;
+    --color-purple: #B39DDB;
+    --color-purple-light: #9575CD;
+    --color-purple-muted: #9E8FB0;
+
+    --color-grey-900: #F5F5F5;
+    --color-grey-800: #E0E0E0;
+    --color-grey-700: #BDBDBD;
+    --color-grey-600: #9E9E9E;
+    --color-grey-500: #757575;
+    --color-grey-400: #616161;
+    --color-grey-300: #424242;
+    --color-grey-200: #303030;
+    --color-grey-100: #212121;
+
+    --color-text: var(--color-grey-800);
+    --color-text-muted: var(--color-grey-600);
+    --color-text-light: var(--color-grey-500);
+
+    --nav-bg: rgba(13, 13, 13, 0.95);
+    --nav-border: var(--color-grey-200);
+
+    --footer-bg: #1A1A1A;
+    --contact-gradient-end: #1A1A1A;
 }
 
 /* ==========================================================================
@@ -182,9 +260,9 @@ ul {
     left: 0;
     right: 0;
     z-index: 100;
-    background-color: rgba(250, 248, 245, 0.95);
+    background-color: var(--nav-bg);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--color-grey-200);
+    border-bottom: 1px solid var(--nav-border);
 }
 
 .nav-content {
@@ -220,6 +298,67 @@ ul {
 
 .nav-links a:hover {
     color: var(--color-purple);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--color-grey-300);
+    border-radius: 4px;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    color: var(--color-text-muted);
+    margin-left: var(--space-md);
+}
+
+.theme-toggle:hover {
+    border-color: var(--color-purple);
+    color: var(--color-purple);
+}
+
+.theme-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Default: show moon (for switching to dark), hide sun */
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+.theme-toggle .icon-moon {
+    display: block;
+}
+
+/* When in dark mode: show sun (for switching to light), hide moon */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .icon-sun {
+        display: block;
+    }
+    :root:not([data-theme="light"]) .theme-toggle .icon-moon {
+        display: none;
+    }
+}
+
+/* Manual overrides always take precedence */
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+    display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+    display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-sun {
+    display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-moon {
+    display: block;
 }
 
 /* ==========================================================================
@@ -556,7 +695,7 @@ ul {
    ========================================================================== */
 
 .contact {
-    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-purple-deep) 100%);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--contact-gradient-end) 100%);
     padding-bottom: var(--space-2xl);
 }
 
@@ -611,7 +750,7 @@ ul {
    ========================================================================== */
 
 .footer {
-    background-color: var(--color-purple-deep);
+    background-color: var(--footer-bg);
     color: var(--color-grey-400);
     padding: var(--space-xl) 0;
     text-align: center;
